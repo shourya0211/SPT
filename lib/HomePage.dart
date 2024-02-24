@@ -165,7 +165,7 @@ class HomePageState extends State<HomePage> {
 
         // Search page
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50,horizontal: 25),
+          padding: const EdgeInsets.symmetric(vertical: 50,horizontal: 32),
           child: Container(
             width: 300, // Adjust width as needed
             decoration: BoxDecoration(
@@ -215,27 +215,32 @@ class HomePageState extends State<HomePage> {
 
       ][_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black, // Set background color to black
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+            backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
+              backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart_rounded),
             label: 'Cart',
+              backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book_outlined),
             label: 'My Course',
+              backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
+              backgroundColor: Colors.black
           ),
         ],
         currentIndex: _selectedIndex,
@@ -243,6 +248,7 @@ class HomePageState extends State<HomePage> {
         unselectedItemColor: Colors.white,
         onTap: _onItemTapped,
       ),
+
     );
   }
 }
