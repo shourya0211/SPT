@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'NavBar.dart';
@@ -214,41 +216,83 @@ class HomePageState extends State<HomePage> {
         Text('Profile')
 
       ][_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black, // Set background color to black
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.black
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-              backgroundColor: Colors.black
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_rounded),
-            label: 'Cart',
-              backgroundColor: Colors.black
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book_outlined),
-            label: 'My Course',
-              backgroundColor: Colors.black
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-              backgroundColor: Colors.black
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.white,
-        onTap: _onItemTapped,
+      bottomNavigationBar: CustomBottomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
       ),
 
+
+    );
+
+
+
+
+  }
+}
+class CustomBottomNavigationBar extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onItemTapped;
+
+  CustomBottomNavigationBar({
+    required this.selectedIndex,
+    required this.onItemTapped,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 56,
+      decoration: BoxDecoration(
+        color: Colors.black, // Set background color of the bottom navigation bar
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildNavItem(Icons.home, 'Home', 0),
+          _buildNavItem(Icons.search, 'Search', 1),
+          _buildNavItem(Icons.menu_book_outlined, 'Course', 2),
+          _buildNavItem(Icons.shopping_cart_rounded, 'Cart', 3),
+
+          _buildNavItem(Icons.person, 'Profile', 4),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, int index) {
+    final isSelected = selectedIndex == index;
+    return GestureDetector(
+      onTap: () => onItemTapped(index),
+      child: Container(
+        width: 50,
+        padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 2.0), // Adjusted padding for smaller size
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.green : Colors.transparent, // Change background color based on selection
+          borderRadius: BorderRadius.circular(12.0), // Adjusted border radius
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.white : Colors.white.withOpacity(0.5),
+            ),
+            SizedBox(height: 2.0),
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? Colors.white : Colors.white.withOpacity(0.5),
+                fontSize: 10, // Adjusted font size for smaller size
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
+
