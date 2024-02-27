@@ -3,6 +3,7 @@ import 'package:scholar_personal_tutor/HomePage.dart';
 import 'package:scholar_personal_tutor/LoginScreen.dart';
 import 'package:scholar_personal_tutor/OTPVerificationScreen.dart';
 import 'package:scholar_personal_tutor/SignUp.dart';
+import 'package:scholar_personal_tutor/VideoPlayerScreen.dart';
 
 
 import 'ForgetPaswordScreen.dart';

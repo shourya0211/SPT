@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:scholar_personal_tutor/VideoPlayerScreen.dart';
 
 
 import 'NavBar.dart';
@@ -62,17 +63,27 @@ class HomePageState extends State<HomePage> {
         Container(
           color: Colors.black, // Set the background color to black
           child: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'Home',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+            appBar : AppBar(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Greet(),
+
+
+                  Text(
+                    'Rohit Sharmg',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 29,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),// Assuming Greet() is a widget that displays a greeting message
+                ],
               ),
-              backgroundColor: Colors.black, // Set app bar background color to black
+              backgroundColor: Colors.black,
             ),
+
+
             body: Container(
               color: Colors.black,
               child: Padding(
@@ -169,20 +180,31 @@ class HomePageState extends State<HomePage> {
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 1.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      DemoInfo(
-                                        thumbnailPath: demoVideoThumbnails[index],
-                                        courseName: 'course',
-                                        faculty: 'xyz sir',
-                                      ),
-                                    ],
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => VideoPlayerScreen(videoUrl:  'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',),
+                                        ),
+                                      );
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        DemoInfo(
+                                          thumbnailPath: demoVideoThumbnails[index],
+                                          courseName: 'course',
+                                          faculty: 'xyz sir',
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
                             ),
                           ),
+
                         ],
                       ),
                     ],
@@ -237,15 +259,161 @@ class HomePageState extends State<HomePage> {
 
 
         // Course page
+        Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+            backgroundColor: Colors.black,
+            title: Text(
+                'Course',
+            style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+        ),
+      ),
+      ),
+    body: ListView(
+        padding: EdgeInsets.all(8.0),
+        children: [
+          // Add images here
+          // Example image widget
 
-        
-        //Shopping Page
-        Text('shoppin'),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Add border radius
+              child: Stack(
+                children: [
+                  Image.asset('assets/images/thumbnail.jpg'),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter, // Start the gradient closer to the top
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white30.withOpacity(0.030), // Adjust opacity of white color
+                            Colors.black12.withOpacity(1), // Adjust opacity of black color
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 9,
+                    bottom: 10,
+                    child: Text(
+                      'Machine Learning',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Add border radius
+              child: Stack(
+                children: [
+                  Image.asset('assets/images/thumbnail.jpg'),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter, // Start the gradient closer to the top
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white30.withOpacity(0.030), // Adjust opacity of white color
+                            Colors.grey.shade900.withOpacity(1), // Adjust opacity of black color
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 9,
+                    bottom: 10,
+                    child: Text(
+                      'Machine Learning',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Add border radius
+              child: Stack(
+                children: [
+                  Image.asset('assets/images/thumbnail.jpg'),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter, // Start the gradient closer to the top
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white30.withOpacity(0.030), // Adjust opacity of white color
+                            Colors.black12.withOpacity(1), // Adjust opacity of black color
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 9,
+                    bottom: 10,
+                    child: Text(
+                      'Machine Learning',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+            ),
+          ),
+
+
+
+        ],
+
+
+      ),
+    ),
+
+
+
+
+    //Shopping Page
+
         Scaffold(
           backgroundColor: Colors.black,
           appBar: AppBar(
             backgroundColor: Colors.black,
-            title: Text('My Course',style: TextStyle(color: Colors.white),),
+            title: Text('Cart',style: TextStyle(color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,),),
           ),
           body:Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -307,7 +475,139 @@ class HomePageState extends State<HomePage> {
 
 
         //Profile page
-        Text('Profile')
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40),
+          child: Column(
+            children: [
+              const Text('Profile',style: TextStyle(color: Colors.white,fontSize: 24.0,fontWeight: FontWeight.bold)           ),
+              // Profile Picture and Text Row
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    Container(
+                      width: 110,
+                      height: 110,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey, // You can change this to an actual profile picture
+                      ),
+                      // You can replace the placeholder text with actual user's name
+                      child:const  Center(
+                        child: Text(
+                          'User',
+                          style: TextStyle(color: Colors.white, fontSize: 18.0),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 20), // Add some space between profile picture and text
+                    // You can add additional text or widgets here
+                    const Text(
+                      'Additional Info',
+                      style: TextStyle(color: Colors.white, fontSize: 18.0),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Container(
+
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        //SizedBox(
+                        //     width: 120,height:120,
+                        //     child:ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.asset('profile.jpg'))
+                        // ),
+
+                        const Divider(thickness:1.0, color: Colors.white,),
+                        const SizedBox(height:50),
+                        //menu
+                        ProfileMenuWidget(title: "Settings",icon: Icons.settings_outlined,onPress: (){},),
+                        const SizedBox(height: 5), // Add some gap between tiles
+                        const Divider(height:0, color: Colors.transparent), // Add some gap between tiles
+                        const SizedBox(height: 10), // Add some gap between tiles
+
+                        ProfileMenuWidget(title: "2",icon: Icons.settings_outlined, textColor:Colors.white,onPress: (){},),
+                        const SizedBox(height: 10), // Add some gap between tiles
+                        const Divider(height: 0, color: Colors.transparent), // Add some gap between tiles
+                        const SizedBox(height: 10), // Add some gap between tiles
+
+                        ProfileMenuWidget(title: '3',icon: Icons.settings_outlined,onPress: (){},),
+                        const SizedBox(height: 10), // Add some gap between tiles
+                        const Divider(height: 0, color: Colors.transparent), // Add some gap between tiles
+                        const SizedBox(height: 10), // Add some gap between tiles
+
+                        ProfileMenuWidget(title: '4',icon: Icons.settings_outlined,onPress: (){},),
+                        const SizedBox(height: 10), // Add some gap between tiles
+                        const Divider(height: 0, color: Colors.transparent), // Add some gap between tiles
+                        const SizedBox(height: 10), // Add some gap between tiles
+
+                        /* ProfileMenuWidget(title: '5',icon: Icons.settings_outlined,onPress: (){},),
+                        const SizedBox(height: 10), // Add some gap between tiles
+                        const Divider(height: 0, color: Colors.transparent), // Add some gap between tiles
+                        const SizedBox(height: 10), // Add some gap between tiles*/
+
+                        // Bottom Icons Row
+                        Container(
+                          color: Colors.black,
+                          child: Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  // Perform some function when tapped
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.green,
+                                  ),
+                                  padding: const EdgeInsets.all(10),
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.edit_outlined),
+                                      SizedBox(width: 5),
+                                      Text('Edit Profile',style: TextStyle(color: Colors.black),),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {// Perform some function when tapped
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
+
+                                  ),
+                                  padding: const EdgeInsets.all(10),
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.logout_outlined),
+                                      SizedBox(width: 5),
+                                      Text('Logout'),
+                                    ],
+
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )],),
+        )
 
       ][_selectedIndex],
       bottomNavigationBar: CustomBottomNavigationBar(
@@ -327,7 +627,64 @@ class HomePageState extends State<HomePage> {
 
   }
 }
+
+
+class ProfileMenuWidget extends StatelessWidget {
+  const ProfileMenuWidget({
+    Key? key,
+    required this.title,
+    required this.icon,
+    required this.onPress,
+    this.endIcon= false,
+    this.textColor,
+
+  })  : super(key: key);
+  final String title;
+  final IconData icon;
+  final VoidCallback onPress;
+  final bool endIcon;
+  final Color? textColor;
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal:0.2),
+      child: ListTile(
+        tileColor: Colors.white10,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        onTap: onPress,
+        leading: Container(
+          width: 10,
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color:Colors.black12,
+          ),
+          child: Icon(icon,color: Colors.white,),
+        ),
+        title: Text(title,style: const TextStyle(color: Colors.white).apply(color:textColor)),
+        trailing:endIcon? Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color:Colors.black,
+          ),
+          child: const Icon(Icons.arrow_forward_rounded,color: Colors.white, ),
+        ):null,
+
+      ),
+    );
+
+
+
+  }
+}
 // for course
+
+
 class CourseInfo extends StatelessWidget {
   final ImageProvider thumbnail;
   final String courseName;
@@ -344,88 +701,76 @@ class CourseInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20), // Reduce horizontal padding
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.grey.shade900,
-          borderRadius: BorderRadius.circular(20), // Set border radius
+          borderRadius: BorderRadius.circular(10),
         ),
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10), // Reduce padding inside the container
+        padding: EdgeInsets.symmetric(vertical: 7, horizontal: 10), // Adjusted padding
         child: Stack(
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10), // Reduce vertical padding for image
+                Container(
+                  width: 120, // Increased width of the image
+                  height: 90, // Increased height of the image
                   child: Image(
-                    image: thumbnail,
-                    width: 100, // Reduce image size
-                    height: 100, // Reduce image size
+                    fit: BoxFit.cover,
+                    image: thumbnail, // Adjusted to cover the container
                   ),
                 ),
+                SizedBox(width: 20), // Add space between image and text
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20), // Adjust padding
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          courseName,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white), // Reduce font size
-                        ),
-                        SizedBox(height: 3), // Reduce height between text
-                        Text(
-                          price,
-                          style: TextStyle(fontSize: 14, color: Colors.grey), // Reduce font size
-                        ),
-                        SizedBox(height: 3), // Reduce height between text
-                        Text(
-                          faculty,
-                          style: TextStyle(fontSize: 14, color: Colors.grey), // Reduce font size
-                        ),
-                        SizedBox(height: 15), // Add space between faculty text and buttons
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                // Handle buy button tap action here
-                                // For example, you can navigate to a buy screen or perform any other action.
-                              },
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.green), // Set background color to green
-                              ),
-                              child: Text(
-                                'Buy',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black, // Set font color to black
-                                ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        courseName,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                      SizedBox(height: 3),
+                      Text(
+                        faculty,
+                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                      ),
+                      SizedBox(height: 10), // Add space between text and button
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Handle buy button tap action here
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.green), // Set background color to green
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0), // Set rounded corner radius
                               ),
                             ),
-                            // Add space between buttons
-
-                          ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Text(
+                              'Buy',
+                              style: TextStyle(fontSize: 14, color: Colors.black),
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
             Positioned(
-              top: 0,
-              right: 0,
+              top: -10,
+              right: -10,
               child: IconButton(
                 onPressed: () {
-                  // Handle cancel icon tap action here
-                  // For example, you can cancel the purchase or navigate back.
+                  // Handle cancel button tap action here
                 },
-                icon: Icon(
-                  Icons.cancel,
-                  color: Colors.white,
-                ),
+                icon: Icon(Icons.cancel, color: Colors.white),
               ),
             ),
           ],
@@ -438,16 +783,23 @@ class CourseInfo extends StatelessWidget {
 
 
 
+
+
+
+
+
 class DemoInfo extends StatelessWidget {
   final String thumbnailPath;
   final String courseName;
   final String faculty;
 
+
   DemoInfo({
     required this.thumbnailPath,
     required this.courseName,
     required this.faculty,
-  });
+     // Rename this parameter
+  }) ;
 
   @override
   Widget build(BuildContext context) {
@@ -500,6 +852,11 @@ class DemoInfo extends StatelessWidget {
     );
   }
 }
+
+
+// Video player screen widget
+
+
 
 
 
@@ -564,4 +921,29 @@ class CustomBottomNavigationBar extends StatelessWidget {
     );
   }
 }
+
+class Greet extends StatelessWidget {
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good morning,';
+    } else if (hour < 17) {
+      return 'Good afternoon,';
+    } else {
+      return 'Good evening,';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(greeting(),style: TextStyle(fontSize: 20,
+          fontWeight: FontWeight.bold,color: Colors.white),)
+      ],
+    );
+
+  }
+}
+
 
