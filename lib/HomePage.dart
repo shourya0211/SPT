@@ -71,7 +71,7 @@ class HomePageState extends State<HomePage> {
 
 
                   Text(
-                    'Rohit Sharmg',
+                    'Rohit Sharma',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 29,
