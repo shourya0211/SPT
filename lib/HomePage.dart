@@ -15,12 +15,77 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+
+  final TextEditingController _searchController = TextEditingController();
+
+  List<String> suggestions = [
+    'Apple',
+    'Banana',
+    'Orange',
+    'Grapes',
+    'Pineapple',
+    'Watermelon',
+    'Mango',
+  ];
+
+  @override
+  void dispose() {
+    _searchController.dispose(); // Dispose the controller
+    super.dispose();
+  }
+  void _updateSuggestions(String input) {
+    setState(() {
+      suggestions = input.isEmpty
+          ? [
+        'Apple',
+        'Banana',
+        'Orange',
+        'Grapes',
+        'Pineapple',
+        'Watermelon',
+        'Mango',
+      ]
+          : suggestions
+          .where((suggestion) =>
+          suggestion.toLowerCase().contains(input.toLowerCase()))
+          .toList();
+    });
+  }
+
+  void _clearTextField() {
+    _searchController.clear();
+    _updateSuggestions('');
+  }
   final List<String> liveVideoThumbnails = [
     'assets/images/thumbnail.jpg', // Replace with your image paths
     'assets/images/thumbnail.jpg',
     'assets/images/thumbnail.jpg',
     // Add more image paths as needed
   ];
+
+  final List<String> VideoUrls = [
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+  ];
+
+  final List<String> Description = [
+    'Machine learning, the art of teaching computers to learn and adapt from data, is not just a powerful tool of today but also a glimpse into the future. As we explore its concepts and applications, it is important to understand that machine learning’s influence will only grow. In the coming years, it will play a pivotal role in reshaping industries, automating tasks, and unlocking new frontiers of innovation, making our world smarter and more efficient.',
+       'BASICS OF PROGRAMMING LANGUAGE'
+       'LOOPS, PATTERN QUESTION'
+       'TIME AND SPACE COMPLEXITY'
+       'DIVING INTO DSA WITH ARRAYS, STRINGS'
+       'COLLECTION FRAMEWORK'
+       'RECURSION AND OOPS'
+       'HASHMAP & HASHSET'
+      'STACKS & QUEUES'
+      'BINARY TREES & TRIE'
+       'GRAPHS'
+      'DYNAMIC PROGRAMMING'
+      'BACK TRACKING'
+      'SEGMENT TREES'
+
+  ];
+
 
   final List<String> liveVideoTitles = [
     'Live Video 1',
@@ -32,15 +97,12 @@ class HomePageState extends State<HomePage> {
   final List<String> demoVideoThumbnails = [
     'assets/images/thumbnail.jpg', // Replace with your image paths
     'assets/images/thumbnail.jpg',
-    'assets/images/thumbnail.jpg',
-    'assets/images/thumbnail.jpg',
+
   ];
 
   final List<String> demoVideoTitles = [
-    'Demo Video 1',
-    'Demo Video 2',
-    'Demo Video 3',
-    'Demo Video 2',
+    'Machine Learning',
+    'Competitive Programing',
     // Add your demo video titles here
   ];
 
@@ -173,7 +235,7 @@ class HomePageState extends State<HomePage> {
                             ),
                           ),
                           Container(
-                            height: 412, // Set the height of the horizontal scrollable list
+                            height: 412, // Set the height of the vertical scrollable list
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               itemCount: demoVideoThumbnails.length,
@@ -182,10 +244,15 @@ class HomePageState extends State<HomePage> {
                                   padding: const EdgeInsets.symmetric(horizontal: 1.0),
                                   child: GestureDetector(
                                     onTap: () {
+                                      // Navigate to the video player screen when tapped
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => VideoPlayerScreen(videoUrl:  'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',),
+                                          builder: (context) => VideoPlayerScreen(
+                                            videoUrl: VideoUrls[index],
+                                            Description: Description[index],
+                                            Title: demoVideoTitles[index],
+                                          ),
                                         ),
                                       );
                                     },
@@ -194,8 +261,8 @@ class HomePageState extends State<HomePage> {
                                       children: [
                                         DemoInfo(
                                           thumbnailPath: demoVideoThumbnails[index],
-                                          courseName: 'course',
-                                          faculty: 'xyz sir',
+                                          courseName: demoVideoTitles[index], // Set the course name for this item
+
                                         ),
                                       ],
                                     ),
@@ -204,6 +271,7 @@ class HomePageState extends State<HomePage> {
                               },
                             ),
                           ),
+
 
                         ],
                       ),
@@ -219,40 +287,96 @@ class HomePageState extends State<HomePage> {
 
         // Search page
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50,horizontal: 32),
-          child: Container(
-            width: 300, // Adjust width as needed
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), // Set border radius
-              border: Border.all(
-                color: Colors.white, // Set border color
-                width: 2, // Set border width
+          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+          child: Stack(
+            fit: StackFit.passthrough,
+            children: [
+              Container(
+                width: 500,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.green,
+                    width: 2,
+                  ),
+                  color: Colors.green,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom:0.0),
+                  child: Autocomplete<String>(
+                    optionsBuilder: (TextEditingValue textEditingValue) {
+                      if (textEditingValue.text.isEmpty) {
+                        return const Iterable<String>.empty();
+                      }
+                      return suggestions.where((suggestion) =>
+                          suggestion.toLowerCase().contains(textEditingValue.text.toLowerCase()));
+                    },
+                    onSelected: (String selectedValue) {
+                      setState(() {
+                        _searchController.text = selectedValue;
+                      });
+                    },
+                    fieldViewBuilder: (BuildContext context,
+                        TextEditingController fieldTextEditingController,
+                        FocusNode fieldFocusNode,
+                        VoidCallback onFieldSubmitted) {
+                      return TextField(
+                        controller: fieldTextEditingController,
+                        focusNode: fieldFocusNode,
+                        onChanged: _updateSuggestions,
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 30,vertical: 10),
+                          prefixIcon: IconButton(icon: Icon(Icons.search),onPressed: null),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.clear),
+                            onPressed: _clearTextField,
+                            color: Colors.black,
+                          ),
+                        ),
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      );
+                    },
+
+                    optionsViewBuilder: (BuildContext context,
+                        AutocompleteOnSelected<String> onSelected,
+                        Iterable<String> options) {
+                      return Align(
+                        alignment: Alignment.topLeft,
+                        child: Material(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white70,
+                          elevation: 0.0,
+                          child: SizedBox(
+                            height: 400,
+                            width: 370,
+                            child: ListView.builder(
+                              padding: EdgeInsets.symmetric(),
+                              itemCount: options.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final String option = options.elementAt(index);
+                                return GestureDetector(
+                                  onTap: () {
+                                    onSelected(option);
+                                  },
+                                  child: ListTile(
+                                    title: Text(option),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
-              color: Colors.white, // Set background color of the search bar
-            ),
-            child: Row( // Row to align search icon and text field
-              children: [
-                Padding( // Padding for the search icon
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.black, // Set icon color
-                  ),
-                ),
-                Expanded( // Expanded widget to allow the text field to take remaining space
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search',
-                      border: InputBorder.none, // Hide default border
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20), // Adjust padding as needed
-                    ),
-                    style: TextStyle(
-                      color: Colors.black, // Set text color
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              SizedBox(height: 100),
+            ],
           ),
         ),
 
@@ -277,8 +401,6 @@ class HomePageState extends State<HomePage> {
         children: [
           // Add images here
           // Example image widget
-
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
@@ -479,12 +601,19 @@ class HomePageState extends State<HomePage> {
           padding: const EdgeInsets.symmetric(vertical: 40),
           child: Column(
             children: [
-              const Text('Profile',style: TextStyle(color: Colors.white,fontSize: 24.0,fontWeight: FontWeight.bold)           ),
+              const Text(
+                'Profile',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold),
+              ),
+
+
               // Profile Picture and Text Row
-              const SizedBox(height: 10),
+              const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-
                 child: Row(
                   children: [
                     const SizedBox(
@@ -495,17 +624,16 @@ class HomePageState extends State<HomePage> {
                       height: 110,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey, // You can change this to an actual profile picture
+                        color: Colors.grey,
                       ),
-                      // You can replace the placeholder text with actual user's name
-                      child:const  Center(
+                      child: const Center(
                         child: Text(
                           'User',
                           style: TextStyle(color: Colors.white, fontSize: 18.0),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 20), // Add some space between profile picture and text
+                    const SizedBox(width: 20),
                     // You can add additional text or widgets here
                     const Text(
                       'Additional Info',
@@ -514,100 +642,83 @@ class HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: Container(
+              const SizedBox(height: 20),
+              const Divider(thickness: 0.7,),
+              const SizedBox(height: 20),
 
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      children: [
-                        //SizedBox(
-                        //     width: 120,height:120,
-                        //     child:ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.asset('profile.jpg'))
-                        // ),
-
-                        const Divider(thickness:1.0, color: Colors.white,),
-                        const SizedBox(height:50),
-                        //menu
-                        ProfileMenuWidget(title: "Settings",icon: Icons.settings_outlined,onPress: (){},),
-                        const SizedBox(height: 5), // Add some gap between tiles
-                        const Divider(height:0, color: Colors.transparent), // Add some gap between tiles
-                        const SizedBox(height: 10), // Add some gap between tiles
-
-                        ProfileMenuWidget(title: "2",icon: Icons.settings_outlined, textColor:Colors.white,onPress: (){},),
-                        const SizedBox(height: 10), // Add some gap between tiles
-                        const Divider(height: 0, color: Colors.transparent), // Add some gap between tiles
-                        const SizedBox(height: 10), // Add some gap between tiles
-
-                        ProfileMenuWidget(title: '3',icon: Icons.settings_outlined,onPress: (){},),
-                        const SizedBox(height: 10), // Add some gap between tiles
-                        const Divider(height: 0, color: Colors.transparent), // Add some gap between tiles
-                        const SizedBox(height: 10), // Add some gap between tiles
-
-                        ProfileMenuWidget(title: '4',icon: Icons.settings_outlined,onPress: (){},),
-                        const SizedBox(height: 10), // Add some gap between tiles
-                        const Divider(height: 0, color: Colors.transparent), // Add some gap between tiles
-                        const SizedBox(height: 10), // Add some gap between tiles
-
-                        /* ProfileMenuWidget(title: '5',icon: Icons.settings_outlined,onPress: (){},),
-                        const SizedBox(height: 10), // Add some gap between tiles
-                        const Divider(height: 0, color: Colors.transparent), // Add some gap between tiles
-                        const SizedBox(height: 10), // Add some gap between tiles*/
-
-                        // Bottom Icons Row
-                        Container(
-                          color: Colors.black,
-                          child: Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  // Perform some function when tapped
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.green,
-                                  ),
-                                  padding: const EdgeInsets.all(10),
-                                  child: const Row(
-                                    children: [
-                                      Icon(Icons.edit_outlined),
-                                      SizedBox(width: 5),
-                                      Text('Edit Profile',style: TextStyle(color: Colors.black),),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {// Perform some function when tapped
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.white,
-
-                                  ),
-                                  padding: const EdgeInsets.all(10),
-                                  child: const Row(
-                                    children: [
-                                      Icon(Icons.logout_outlined),
-                                      SizedBox(width: 5),
-                                      Text('Logout'),
-                                    ],
-
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: const Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Name',
+                        labelStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(),
+                      ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(),
+                      ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Address',
+                        labelStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(),
+                      ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'State',
+                        labelStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(),
+                      ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      // Logic to handle edit profile button tap
+                    },
+                    icon: const Icon(Icons.edit),
+                    label: const Text('Edit Profile',style: TextStyle(color: Colors.black),),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white, // Change button color to green
                     ),
                   ),
-                ),
-              )],),
-        )
+                  const SizedBox(width: 20),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      // Logic to handle logout button tap
+                    },
+                    icon: const Icon(Icons.logout,color: Colors.white,),
+                    label: const Text('Logout',style: TextStyle(color: Colors.white),),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green, // Change the button color to green
+                    ),
+                  ),
+                ],
+              ),
+
+            ],
+          ),
+        ),
 
       ][_selectedIndex],
       bottomNavigationBar: CustomBottomNavigationBar(
@@ -791,13 +902,13 @@ class CourseInfo extends StatelessWidget {
 class DemoInfo extends StatelessWidget {
   final String thumbnailPath;
   final String courseName;
-  final String faculty;
+
 
 
   DemoInfo({
     required this.thumbnailPath,
     required this.courseName,
-    required this.faculty,
+
      // Rename this parameter
   }) ;
 
@@ -835,11 +946,7 @@ class DemoInfo extends StatelessWidget {
                           courseName,
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
-                        SizedBox(height: 3),
-                        Text(
-                          faculty,
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
+
                       ],
                     ),
                   ),

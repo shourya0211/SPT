@@ -5,8 +5,10 @@ import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatelessWidget {
   final String videoUrl;
+  final String Description;
+  final String Title;
 
-  VideoPlayerScreen({required this.videoUrl});
+  VideoPlayerScreen({required this.videoUrl,required this.Description,required this.Title});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class VideoPlayerScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black, // Set the background color of the AppBar to black
         title: Text(
-          'Machine Learning',
+          Title,
           style: TextStyle(
             color: Colors.white, // Set the font color of the title to white
           ),
@@ -55,10 +57,7 @@ class VideoPlayerScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      'Machine learning is a branch of artificial intelligence (AI) '
-                          'that focuses on developing algorithms and techniques that enable computers to learn from '
-                          'and make predictions or decisions based on data. Instead of being explicitly '
-                          'programmed to perform a certain task, machine learning systems are designed to learn from large datasets and improve their performance over time.',
+                      Description,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,

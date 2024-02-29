@@ -2,22 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:scholar_personal_tutor/HomePage.dart';
 import 'package:scholar_personal_tutor/LoginScreen.dart';
 import 'package:scholar_personal_tutor/OTPVerificationScreen.dart';
+import 'package:scholar_personal_tutor/PaymentPage.dart';
 import 'package:scholar_personal_tutor/SignUp.dart';
 import 'package:scholar_personal_tutor/VideoPlayerScreen.dart';
-
-
 import 'ForgetPaswordScreen.dart';
- // Replace 'main_screen.dart' with the name of your main screen file
-
-
-
+import 'dart:ui' show lerpDouble;
+// Replace 'main_screen.dart' with the name of your main screen file
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
@@ -40,7 +36,6 @@ class MyApp extends StatelessWidget {
 }
 
 
-
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -57,5 +52,3 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
-
-

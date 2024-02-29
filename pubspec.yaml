@@ -30,11 +30,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  carousel_slider: ^4.0.0
-  video_player: ^2.1.6
+  carousel_slider: ^4.2.1
   flick_video_player: ^0.7.0
-  razorpay_flutter: ^1.2.1
-  toast: ^0.1.5
+
+
+
+
+
+
 
 
 
