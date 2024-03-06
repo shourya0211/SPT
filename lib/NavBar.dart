@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' show lerpDouble;
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key});

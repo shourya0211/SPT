@@ -1,11 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:scholar_personal_tutor/VideoPlayerScreen.dart';
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 
-import 'NavBar.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,6 +17,9 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
 
   final TextEditingController _searchController = TextEditingController();
+
+
+
 
   List<String> suggestions = [
     'Apple',
@@ -56,53 +59,69 @@ class HomePageState extends State<HomePage> {
     _searchController.clear();
     _updateSuggestions('');
   }
+
+  void _navigateToSuggestionDetail(String suggestion) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        //change here for show screen on search
+        builder: (context) => VideoPlayerScreen(videoUrl: 'xyz.com', Description: 'hello', Title: 'demo'),
+      ),
+    );
+  }
   final List<String> liveVideoThumbnails = [
     'assets/images/thumbnail.jpg', // Replace with your image paths
-    'assets/images/thumbnail.jpg',
-    'assets/images/thumbnail.jpg',
+
     // Add more image paths as needed
   ];
 
   final List<String> VideoUrls = [
     'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
   ];
 
   final List<String> Description = [
     'Machine learning, the art of teaching computers to learn and adapt from data, is not just a powerful tool of today but also a glimpse into the future. As we explore its concepts and applications, it is important to understand that machine learning’s influence will only grow. In the coming years, it will play a pivotal role in reshaping industries, automating tasks, and unlocking new frontiers of innovation, making our world smarter and more efficient.',
-       'BASICS OF PROGRAMMING LANGUAGE'
-       'LOOPS, PATTERN QUESTION'
-       'TIME AND SPACE COMPLEXITY'
-       'DIVING INTO DSA WITH ARRAYS, STRINGS'
-       'COLLECTION FRAMEWORK'
-       'RECURSION AND OOPS'
-       'HASHMAP & HASHSET'
-      'STACKS & QUEUES'
-      'BINARY TREES & TRIE'
-       'GRAPHS'
-      'DYNAMIC PROGRAMMING'
-      'BACK TRACKING'
-      'SEGMENT TREES'
+    'BASICS OF PROGRAMMING LANGUAGE OOPS,PATTERN QUESTION TIME AND SPACE COMPLEXITY DIVING INTO DSA WITH ARRAYS, STRINGS COLLECTION FRAMEWORK ,RECURSION AND OOPS HASHMAP & HASHSET ,BINARY TREES & TRIE GRAPHS ,DYNAMIC PROGRAMMING BACK TRACKING SEGMENT TREES',
+    'Botany,Zoology,Organic-Chemistry,Physical-Chemistry,Inorganic-Chemistry,Physics ',
+    'Maths,Organic-Chemistry,Physical-Chemistry,Inorganic-Chemistry,Physics',
+    'HTML,CSS,Java Script,DOM,Responsive Web Design,Web Hosting and Deployment,Final Project'
+
+
+  ];
+
+  final List<String> liveVideoTimeSlots =[
+    '11:20',
+
 
   ];
 
 
   final List<String> liveVideoTitles = [
     'Live Video 1',
-    'Live Video 2',
-    'Live Video 3',
+
     // Add your live video titles here
   ];
 
   final List<String> demoVideoThumbnails = [
     'assets/images/thumbnail.jpg', // Replace with your image paths
     'assets/images/thumbnail.jpg',
+    'assets/images/thumbnail.jpg',
+    'assets/images/thumbnail.jpg',
+    'assets/images/thumbnail.jpg',
 
   ];
+
 
   final List<String> demoVideoTitles = [
     'Machine Learning',
     'Competitive Programing',
+    'NEET',
+    'IITJEE',
+    'Website Development'
     // Add your demo video titles here
   ];
 
@@ -114,14 +133,15 @@ class HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
-
+  DateTime _selectedValue = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body:<Widget>[
-        // Home page
 
+
+        // Home page
         Container(
           color: Colors.black, // Set the background color to black
           child: Scaffold(
@@ -145,138 +165,239 @@ class HomePageState extends State<HomePage> {
               backgroundColor: Colors.black,
             ),
 
-
-            body: Container(
-              color: Colors.black,
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Carousel section
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          height: 200, // Adjust height as needed
-                          autoPlay: true, // Set to true for automatic sliding
-                          enlargeCenterPage: true, // Set to true to make the centered item larger
-                          aspectRatio: 16 / 9, // Adjust aspect ratio as needed
-                          enableInfiniteScroll: true, // Set to false to disable infinite scrolling
-                        ),
-                        items: [
-                          // Add your carousel items here
-                          // Example carousel item:
-                          Image.asset('assets/images/thumbnail.jpg', fit: BoxFit.cover),
-                          Image.asset('assets/images/thumbnail.jpg', fit: BoxFit.cover),
-                          Image.asset('assets/images/thumbnail.jpg', fit: BoxFit.cover),
-                        ],
-                      ),
-                      SizedBox(height: 20), // Add some space between carousel and other content
-
-                      // Rest of your content
-                      Text(
-                        'Live Classes',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 160, // Set the height of the horizontal scrollable list
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: liveVideoThumbnails.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Stack(
-                                    alignment: Alignment.bottomCenter,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10), // Adjust the radius value as needed
-                                        child: Image.asset(
-                                          liveVideoThumbnails[index],
-                                          width: 120,
-                                          height: 120,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    liveVideoTitles[index],
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Demo Classes',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+            
+            body: SingleChildScrollView(
+              child: Container(
+                color: Colors.black,
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Carousel section
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            height: 165, // Adjust height as needed
+                            autoPlay: true, // Set to true for automatic sliding
+                            enlargeCenterPage: true, // Set to true to make the centered item larger
+                            aspectRatio: 16 / 9, // Adjust aspect ratio as needed
+                            enableInfiniteScroll: true, // Set to false to disable infinite scrolling
                           ),
-                          Container(
-                            height: 412, // Set the height of the vertical scrollable list
-                            child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: demoVideoThumbnails.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      // Navigate to the video player screen when tapped
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => VideoPlayerScreen(
-                                            videoUrl: VideoUrls[index],
-                                            Description: Description[index],
-                                            Title: demoVideoTitles[index],
+                          items: [
+                            // Add your carousel items here
+                            // Example carousel item:
+                            Image.asset('assets/images/thumbnail.jpg', fit: BoxFit.cover),
+                            Image.asset('assets/images/thumbnail.jpg', fit: BoxFit.cover),
+                            Image.asset('assets/images/thumbnail.jpg', fit: BoxFit.cover),
+                          ],
+                        ),
+                        SizedBox(height: 15 ), // Add some space between carousel and other content
+              
+                        // Rest of your content
+                        Text(
+                          'My Classes',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Container(
+                          child: Column(
+
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(10), // Adjust the radius value as needed
+                                  ),
+                                  height: 88,
+                                  child: DatePicker(
+                                    DateTime.now(),
+                                    initialSelectedDate: DateTime.now(),
+                                    selectionColor: Colors.black,
+                                    selectedTextColor: Colors.white,
+                                    onDateChange: (date) {
+                                      // New date selected
+                                      setState(() {
+                                        _selectedValue = date;
+                                      });
+                                    },
+                                  ),
+                                ),
+
+                                SizedBox(height: 10),
+
+                                Container(
+                                  height: 243, // Adjusted height to accommodate additional content
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                        child: Text(
+                                          'Upcoming Live Videos', // Assuming this is the title of the section
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      );
-                                    },
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        DemoInfo(
-                                          thumbnailPath: demoVideoThumbnails[index],
-                                          courseName: demoVideoTitles[index], // Set the course name for this item
+                                      ),
+                                      SizedBox(height: 10),
+                                      Expanded(
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: liveVideoThumbnails.length,
+                                          itemBuilder: (BuildContext context, int index) {
+                                            return Padding(
+                                              padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 5),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Stack(
+                                                    alignment: Alignment.bottomCenter,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius: BorderRadius.circular(10),
+                                                        child: Image.asset(
+                                                          liveVideoThumbnails[index],
+                                                          width: 150,
+                                                          height: 120,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 5),
+                                                  Text(
+                                                    'Time Slot: ${liveVideoTimeSlots[index]}', // Assuming liveVideoTimeSlots is a list containing time slots
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              // Add your logic for joining the class here
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.green, // Set the background color to green
+                                            ),
+                                            child: Text(
+                                              'Join Class',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
 
+                                    ],
+                                  ),
+                                ),
+
+
+                              ],
+                            ),
+                        ),
+
+
+                        SizedBox(height: 5),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Demo Classes',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+              
+              
+                              height: 155, // Set the height of the horizontal scrollable list
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal, // Change scroll direction to horizontal
+                                itemCount: demoVideoThumbnails.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 3),
+                                  child: GestureDetector(
+                                  onTap: () {
+                                  // Navigate to the video player screen when tapped
+                                  Navigator.push(
+                                      context,
+                                    MaterialPageRoute(
+                                    builder: (context) => VideoPlayerScreen(
+                                    videoUrl: VideoUrls[index],
+                                    Description: Description[index],
+                                      Title: demoVideoTitles[index],
+                                        ),
+                                      ),
+                                    );
+                                  },
+              
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+              
+                                        Stack(
+                                          alignment: Alignment.bottomCenter,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(10), // Adjust the radius value as needed
+                                              child: Image.asset(
+                                                  demoVideoThumbnails[index],
+                                                width: 150,
+                                                height: 120,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          demoVideoTitles[index],
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+              
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-
-
-                        ],
-                      ),
-                    ],
-                  ),
+                          ],
+                        ),
+              
+              
+                      ],
+                    ),
+              
                 ),
               ),
             ),
@@ -302,14 +423,15 @@ class HomePageState extends State<HomePage> {
                   color: Colors.green,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom:0.0),
+                  padding: const EdgeInsets.only(bottom: 0.0),
                   child: Autocomplete<String>(
                     optionsBuilder: (TextEditingValue textEditingValue) {
                       if (textEditingValue.text.isEmpty) {
                         return const Iterable<String>.empty();
                       }
                       return suggestions.where((suggestion) =>
-                          suggestion.toLowerCase().contains(textEditingValue.text.toLowerCase()));
+                          suggestion.toLowerCase().contains(
+                              textEditingValue.text.toLowerCase()));
                     },
                     onSelected: (String selectedValue) {
                       setState(() {
@@ -327,23 +449,22 @@ class HomePageState extends State<HomePage> {
                         decoration: InputDecoration(
                           hintText: 'Search',
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 30,vertical: 10),
-                          prefixIcon: IconButton(icon: Icon(Icons.search),onPressed: null),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          prefixIcon: const IconButton(
+                              icon: Icon(Icons.search), onPressed: null),
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.clear),
+                            icon: const Icon(Icons.clear),
                             onPressed: _clearTextField,
                             color: Colors.black,
                           ),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                       );
                     },
-
-                    optionsViewBuilder: (BuildContext context,
-                        AutocompleteOnSelected<String> onSelected,
-                        Iterable<String> options) {
+                    optionsViewBuilder: (BuildContext context, AutocompleteOnSelected<String> onSelected, Iterable<String> options) {
                       return Align(
                         alignment: Alignment.topLeft,
                         child: Material(
@@ -354,13 +475,14 @@ class HomePageState extends State<HomePage> {
                             height: 400,
                             width: 370,
                             child: ListView.builder(
-                              padding: EdgeInsets.symmetric(),
+                              padding: const EdgeInsets.symmetric(),
                               itemCount: options.length,
                               itemBuilder: (BuildContext context, int index) {
                                 final String option = options.elementAt(index);
                                 return GestureDetector(
                                   onTap: () {
                                     onSelected(option);
+                                    _navigateToSuggestionDetail(option); // Navigate to detail page
                                   },
                                   child: ListTile(
                                     title: Text(option),
@@ -375,7 +497,7 @@ class HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
             ],
           ),
         ),
@@ -391,8 +513,8 @@ class HomePageState extends State<HomePage> {
                 'Course',
             style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
         ),
       ),
       ),
@@ -439,44 +561,7 @@ class HomePageState extends State<HomePage> {
 
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20), // Add border radius
-              child: Stack(
-                children: [
-                  Image.asset('assets/images/thumbnail.jpg'),
-                  Positioned.fill(
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter, // Start the gradient closer to the top
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.white30.withOpacity(0.030), // Adjust opacity of white color
-                            Colors.grey.shade900.withOpacity(1), // Adjust opacity of black color
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 9,
-                    bottom: 10,
-                    child: Text(
-                      'Machine Learning',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
 
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
@@ -502,7 +587,128 @@ class HomePageState extends State<HomePage> {
                     left: 9,
                     bottom: 10,
                     child: Text(
-                      'Machine Learning',
+                      'IITJEE',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+            ),
+          ),
+
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Add border radius
+              child: Stack(
+                children: [
+                  Image.asset('assets/images/thumbnail.jpg'),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter, // Start the gradient closer to the top
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white30.withOpacity(0.030), // Adjust opacity of white color
+                            Colors.black12.withOpacity(1), // Adjust opacity of black color
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 9,
+                    bottom: 10,
+                    child: Text(
+                      'NEET',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+            ),
+          ),
+
+
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Add border radius
+              child: Stack(
+                children: [
+                  Image.asset('assets/images/thumbnail.jpg'),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter, // Start the gradient closer to the top
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white30.withOpacity(0.030), // Adjust opacity of white color
+                            Colors.black12.withOpacity(1), // Adjust opacity of black color
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 9,
+                    bottom: 10,
+                    child: Text(
+                      'Website Development',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+            ),
+          ),
+
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Add border radius
+              child: Stack(
+                children: [
+                  Image.asset('assets/images/thumbnail.jpg'),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter, // Start the gradient closer to the top
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white30.withOpacity(0.030), // Adjust opacity of white color
+                            Colors.black12.withOpacity(1), // Adjust opacity of black color
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 9,
+                    bottom: 10,
+                    child: Text(
+                      'Competitive Programing',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
@@ -598,14 +804,14 @@ class HomePageState extends State<HomePage> {
 
         //Profile page
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40),
+          padding: const EdgeInsets.symmetric(vertical:40),
           child: Column(
             children: [
               const Text(
                 'Profile',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 24.0,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.bold),
               ),
 

@@ -3,6 +3,7 @@ import 'package:scholar_personal_tutor/LoginScreen.dart';
 import 'my_button.dart';
 import 'my_textfield.dart';
 import 'square_tile.dart';
+import 'dart:ui' show lerpDouble;
 
 //const List<String> list = <String>['IIT-JEE','NEET','Machine Learning'];
 class SignUpPage extends StatefulWidget {

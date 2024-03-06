@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' show lerpDouble;
 
 class SquareTile extends StatelessWidget {
   final String imagePath;
