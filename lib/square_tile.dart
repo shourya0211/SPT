@@ -12,11 +12,7 @@ class SquareTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-
-      },
-      child: Padding(
+    return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Container(
           height: 50,
@@ -37,49 +33,6 @@ class SquareTile extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }
-
-/*
-InkWell(
-onTap: () {
-// Add your functionality here
-},
-borderRadius: BorderRadius.circular(16),
-child: Container(
-height: 56,
-padding: EdgeInsets.all(20),
-decoration: BoxDecoration(
-border: Border.all(color: Colors.black),
-borderRadius: BorderRadius.circular(30),
-color: Colors.grey[200],
-),
-child: Row(
-mainAxisSize: MainAxisSize.min,
-children: [
-SizedBox(
-width: 46,
-height: 50,// Adjust the width of the image
-child: Image.asset(
-imagePath,
-height: 46,
-),
-),
-SizedBox(width: 10), // Adjust the spacing between image and text
-SizedBox(
-width: 180,
-height: 40,// Adjust the width of the text
-child: Text(
-text,
-style: TextStyle(
-fontSize: 13,
-fontWeight: FontWeight.bold,
-),
-),
-),
-],
-),
-),
-)*/

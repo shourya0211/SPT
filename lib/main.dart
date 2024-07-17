@@ -1,40 +1,34 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:scholar_personal_tutor/HomePage.dart';
-import 'package:scholar_personal_tutor/LoginScreen.dart';
-import 'package:scholar_personal_tutor/OTPVerificationScreen.dart';
-import 'package:scholar_personal_tutor/PaymentPage.dart';
-import 'package:scholar_personal_tutor/SignUp.dart';
-import 'package:scholar_personal_tutor/VideoPlayerScreen.dart';
-import 'ForgetPaswordScreen.dart';
+import 'package:get/get.dart';
 import 'dart:ui' show lerpDouble;
-// Replace 'main_screen.dart' with the name of your main screen file
+import 'package:scholar_personal_tutor/SplashScreen.dart';
+import 'package:scholar_personal_tutor/firebase_options.dart';
 
-void main() {
+import 'controller.dart';
+
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
+  Get.put(InternetController(),permanent: true);
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowMaterialGrid: false,
       title: 'My App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
-      // initialRoute: '/', // Set initial route to the login screen
-      // routes: {
-      //   '/': (context) => SplashScreen(), // Splash screen route
-      //   '/login': (context) => LoginScreen(), // Login screen route
-      //   '/main': (context) => MainScreen(), // Main screen route
-      // },
+      home: SplashScreen(),
     );
   }
 }
-
 
 class MainScreen extends StatelessWidget {
   @override

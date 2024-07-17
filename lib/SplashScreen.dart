@@ -3,6 +3,7 @@ import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scholar_personal_tutor/HomePage.dart';
 import 'package:scholar_personal_tutor/LoginScreen.dart';
 
 class SplashScreen extends StatefulWidget{
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage(0)));
     });
   }
   @override

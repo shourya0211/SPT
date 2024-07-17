@@ -15,7 +15,7 @@ class MyButtonTwo extends StatelessWidget {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(30),
           ),
           child: const Center(

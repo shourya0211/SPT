@@ -1,28 +1,68 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 
-class VideoPlayerScreen extends StatelessWidget {
-  final String videoUrl;
-  final String Description;
+class VideoPlayerScreen extends StatefulWidget {
+
   final String Title;
 
-  VideoPlayerScreen({required this.videoUrl,required this.Description,required this.Title});
+  VideoPlayerScreen({required this.Title});
+
+  @override
+  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+}
+
+class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String desc = "";
+    String video = "";
+    Future<void> getData() async {
+      final ref = await FirebaseFirestore.instance
+          .collection("demo_course")
+          .where('name', isEqualTo: widget.Title)
+          .get();
+
+      ref.docs.forEach((doc) {
+        setState(() {
+          desc = doc["desc"];
+          video = doc["video"];
+        });
+      });
+
+      log(desc);
+    }
+
+    @override
+    void initState() {
+      super.initState();
+      getData();
+    }
+
+    bool showInfo = false; // State to manage whether to show information or not
+
+    void toggleInfo() {
+      setState(() {
+        showInfo = !showInfo; // Toggle the state when the button is clicked
+      });
+    }
     final FlickManager flickManager = FlickManager(
       videoPlayerController: VideoPlayerController.network(
-        videoUrl,
+        video,
       ),
     );
+
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black, // Set the background color of the AppBar to black
         title: Text(
-          Title,
+          widget.Title,
           style: TextStyle(
             color: Colors.white, // Set the font color of the title to white
           ),
@@ -48,22 +88,31 @@ class VideoPlayerScreen extends StatelessWidget {
                     child: FlickVideoPlayer(flickManager: flickManager),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(10),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: toggleInfo,
+                      child: Text('Description'),
                     ),
-                    child: Text(
-                      Description,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
+                    SizedBox(height: 20),
+                    if (showInfo) // Show information only when showInfo is true
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Description:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            desc,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(height: 10),
+
+                        ],
                       ),
-                    ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -77,6 +126,7 @@ class VideoPlayerScreen extends StatelessWidget {
         backgroundColor: Colors.green,
         child: Icon(Icons.shopping_cart),
       ),
+
     );
   }
 }

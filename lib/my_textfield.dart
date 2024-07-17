@@ -20,24 +20,24 @@ class MyTextField extends StatelessWidget {
 
 
       child: TextField(
-
+        style: TextStyle(color: Colors.white),
         controller: controller,
         obscureText: obscureText,
-
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Colors.grey.shade400),
             ),
-            fillColor: Colors.grey.shade200,
+            fillColor: Colors.grey.shade900,
             filled: true,
             hintText: hintText,
-            hintStyle: TextStyle(color: Colors.grey[500])),
+            hintStyle: TextStyle(color: Colors.grey[500])
+        ),
       ),
     );
   }

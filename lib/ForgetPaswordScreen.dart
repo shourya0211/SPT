@@ -1,13 +1,16 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' show lerpDouble;
 
+import 'package:scholar_personal_tutor/LoginScreen.dart';
+
 class ForgotPasswordScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Container(
         color: Colors.black,
         padding: EdgeInsets.all(20.0),
@@ -24,20 +27,28 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30),
-
-
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: TextFormField(
+
                 controller: emailController,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                  hintText: "Email",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    fillColor: Colors.grey.shade900,
+                    filled: true,
+                    hintText: "Email",
+                    hintStyle: TextStyle(color: Colors.grey[500])
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
@@ -47,17 +58,49 @@ class ForgotPasswordScreen extends StatelessWidget {
               width: double.infinity,
               height: 45,
               child: ElevatedButton(
-                onPressed: () {
-                  // Placeholder for sending verification email
-                  // UI-only implementation
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Verification email sent to ${emailController.text}"),
-                    ),
-                  );
+                onPressed: () async{
+                  String email=emailController.text;
+                  try{
+                    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+                        .collection('users') // Replace with your collection name
+                        .doc(email)
+                        .get();
+                    if(documentSnapshot.exists){
+                      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.success,
+                        animType: AnimType.rightSlide,
+                        title: 'Success',
+                        desc: "Forgot Password link successfully send on your email id",
+                        btnOkOnPress: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                        },
+                      )..show();
+                    }
+                    else{
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.error,
+                        animType: AnimType.rightSlide,
+                        title: 'Error',
+                        desc: "This email doesn't exist",
+                        btnOkOnPress: () {
+
+                        },
+                      )..show();
+                    }
+
+                  }
+                  catch (error) {
+                    print(error.toString());
+                  }
+
+
+                  //print(a);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
+                  backgroundColor: Colors.white
                 ),
                 child: Text("Submit",style: TextStyle(color: Colors.black,
                   fontWeight: FontWeight.bold,

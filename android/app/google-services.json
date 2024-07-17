@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "596065947691",
+    "project_id": "scholarpersonaltutors-e5e38",
+    "storage_bucket": "scholarpersonaltutors-e5e38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596065947691:android:32e30e78a0dd9309369a6e",
+        "android_client_info": {
+          "package_name": "com.example.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596065947691-tv30r5s4q22f4lllnkqatntmss5v1167.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfagnT4RVL_nBkrh_wVnjoW8DAdnqxY78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596065947691-tv30r5s4q22f4lllnkqatntmss5v1167.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "596065947691-3opv3kv612b04hhsf8num0dfua8o1eho.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.scholarpersonaltutor.scholarPersonalTutor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596065947691:android:2a9a3e81a0e93d2b369a6e",
+        "android_client_info": {
+          "package_name": "com.scholarpersonaltutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596065947691-tv30r5s4q22f4lllnkqatntmss5v1167.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfagnT4RVL_nBkrh_wVnjoW8DAdnqxY78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596065947691-tv30r5s4q22f4lllnkqatntmss5v1167.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "596065947691-3opv3kv612b04hhsf8num0dfua8o1eho.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.scholarpersonaltutor.scholarPersonalTutor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596065947691:android:92e57a99b9a844ad369a6e",
+        "android_client_info": {
+          "package_name": "com.scholarpersonaltutor.scholar_personal_tutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596065947691-tv30r5s4q22f4lllnkqatntmss5v1167.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfagnT4RVL_nBkrh_wVnjoW8DAdnqxY78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596065947691-tv30r5s4q22f4lllnkqatntmss5v1167.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "596065947691-3opv3kv612b04hhsf8num0dfua8o1eho.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.scholarpersonaltutor.scholarPersonalTutor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
